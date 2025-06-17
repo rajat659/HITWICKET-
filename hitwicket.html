@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hitwicket - Cricket Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      background: #222;
+      color: white;
+      padding: 1em;
+      text-align: center;
+    }
+
+    nav a {
+      color: #ddd;
+      margin: 0 1em;
+      text-decoration: none;
+    }
+
+    .hero {
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1508675801605-44e4b02a0f74') no-repeat center center;
+      background-size: cover;
+      padding: 4em 1em;
+      color: white;
+    }
+
+    .products {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 2em;
+      gap: 2em;
+    }
+
+    .product {
+      background: white;
+      border-radius: 8px;
+      padding: 1em;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 4px;
+    }
+
+    .cart {
+      padding: 2em;
+      background: #fff;
+    }
+
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 1em;
+    }
+
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 0.5em 1em;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🏏 Hitwicket</h1>
+  <nav>
+    <a href="#products">Shop</a>
+    <a href="#cart">Cart</a>
+    <a href="#policies">Policies</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Premium Cricket Accessories</h2>
+  <p>Shop bats, gloves, pads, jerseys, and more.</p>
+</section>
+
+<section id="products" class="products">
+  <div class="product">
+    <img src="https://images.unsplash.com/photo-1585487000160-f01e3600c5cf" alt="Cricket Bat">
+    <h3>SS Professional Bat</h3>
+    <p>₹3,999</p>
+    <button onclick="addToCart('SS Professional Bat', 3999)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="https://images.unsplash.com/photo-1607082350920-39e7a7631c2b" alt="Cricket Gloves">
+    <h3>Leather Gloves</h3>
+    <p>₹799</p>
+    <button onclick="addToCart('Leather Gloves', 799)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="https://images.unsplash.com/photo-1584466977770-c1f1fd1d1882" alt="Cricket Pads">
+    <h3>Protective Pads</h3>
+    <p>₹999</p>
+    <button onclick="addToCart('Protective Pads', 999)">Add to Cart</button>
+  </div>
+</section>
+
+<section id="cart" class="cart">
+  <h2>Your Cart</h2>
+  <ul id="cart-items"></ul>
+  <p><strong>Total: ₹<span id="cart-total">0</span></strong></p>
+  <button onclick="checkout()">Checkout</button>
+</section>
+
+<section id="policies" class="cart">
+  <h2>Return Policy</h2>
+  <p>You may return any item within 7 days of delivery. The product must be unused and in original packaging.</p>
+
+  <h2>Shipping Policy</h2>
+  <p>We ship across India. Orders are processed within 1-2 business days. Delivery time is usually 3-7 days depending on location.</p>
+
+  <h2>Refund Policy</h2>
+  <p>If you cancel before dispatch, you will receive a full refund. Once shipped, refunds are processed only after item return is verified.</p>
+</section>
+
+<footer>
+  <p>&copy; 2025 Hitwicket. All rights reserved.</p>
+</footer>
+
+<script>
+  let cart = [];
+  let total = 0;
+
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    total += price;
+    updateCart();
+  }
+
+  function updateCart() {
+    const list = document.getElementById('cart-items');
+    const totalText = document.getElementById('cart-total');
+    list.innerHTML = '';
+    cart.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.textContent = `${item.name} - ₹${item.price}`;
+      li.innerHTML += ` <button onclick="removeItem(${index})">Remove</button>`;
+      list.appendChild(li);
+    });
+    totalText.textContent = total;
+  }
+
+  function removeItem(index) {
+    total -= cart[index].price;
+    cart.splice(index, 1);
+    updateCart();
+  }
+
+  function checkout() {
+    alert('Order placed! We will contact you via email.');
+    cart = [];
+    total = 0;
+    updateCart();
+  }
+</script>
+
+</body>
+</html>
